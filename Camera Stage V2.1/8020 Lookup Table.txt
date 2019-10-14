@@ -1,0 +1,44 @@
+10 Series 8 Hole - Rectangular Flat Plate
+	Part No. 4165
+	https://8020.net/4165.html
+	6 * 7 = 42
+10 Series 8 Hole - Inside Corner Bracket
+	Part No. 4114
+	https://8020.net/4114.html
+	10 * 7 = 70
+10 Series 12 Hole - 90 Degree Angled Flat Plate
+	Part No. 4128
+	https://8020.net/4128.html
+	6 * 7 = 42
+10 Series Flange Mount Caster Base Plate
+	Part No. 2418
+	https://8020.net/2418.html
+	2 * 7 = 14
+1/4-20 x .500" Socket Head Cap Screw (SHCS)
+	Part No. 3062
+	https://8020.net/3062.html
+	This SHCS is used to fasten "10 Series Flange Mount Caster Base Plate" on pillars
+	8 * 7 = 56
+5/16-18 x .687" Flanged Button Head Socket Cap Screw (FBHSCS)
+	Part No. 3330
+	https://8020.net/3330.html
+	This FBHSCS is used to fasten wheels on "10 Series Flange Mount Caster Base Plate";
+	8 * 7 = 56
+1/4-20 Double Slide-in Economy T-Nut
+	Part No. 3280
+	https://8020.net/3280.html
+	This T-Nut is the most common one used to build up the layout
+	120 * 7 = 840
+1/4-20 x .500" Flanged Button Head Socket Cap Screw (FBHSCS)
+	Part No. 3342
+	https://8020.net/3342.html
+	This FBHSCS is the most common one used to build up the layout
+	190 * 7 = 1330
+10 Series Standard Captive Lift-Off Hinge Assembly
+	Part No. 2066
+	https://8020.net/2066.html
+	3 * 8 = 24
+Flanged Mount Swivel Caster: 5.00"
+	Part No. 2323
+	https://8020.net/2323.html
+	2 * 6 = 12
