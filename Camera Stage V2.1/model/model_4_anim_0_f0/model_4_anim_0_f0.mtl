@@ -1,0 +1,50 @@
+newmtl BottomsSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 98.00
+map_Kd texture/FuseModel_4_Bottom_Diffuse.png
+map_Ks texture/FuseModel_4_Bottom_Specular.png
+newmtl EyelashesSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 98.00
+map_Kd texture/FuseModel_4_Body_Diffuse.png
+map_Ks texture/FuseModel_4_Body_Specular.png
+newmtl HairSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 98.00
+map_Kd texture/FuseModel_4_Hair_Diffuse.png
+map_Ks texture/FuseModel_4_Hair_Specular.png
+newmtl ShoesSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 98.00
+map_Kd texture/FuseModel_4_Shoes_Diffuse.png
+map_Ks texture/FuseModel_4_Shoes_Specular.png
+newmtl TopsSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.00 0.00 0.00
+Ns 98.00
+map_Kd texture/FuseModel_4_Top_Diffuse.png
+map_Ks texture/FuseModel_4_Top_Specular.png
