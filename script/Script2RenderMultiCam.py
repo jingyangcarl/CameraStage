@@ -103,7 +103,7 @@ def get_3x4_P_matrix_from_blender(cam):
 #---------------------------------------------------------------
 # main
 #---------------------------------------------------------------
-outputPath = 'F:\Project\Blender\CameraStage\Camera Stage V2.1\rendered\\'
+outputPath = 'F:\Project\Blender\CameraStage\\rendered\\'
 
 cameras = bpy.data.cameras
 
