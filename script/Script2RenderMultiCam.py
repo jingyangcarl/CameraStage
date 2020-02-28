@@ -2,6 +2,8 @@ import bpy
 import os
 from mathutils import Matrix, Vector
 import numpy
+import time
+import argparse
 
 # blender 2.8+
 
@@ -91,7 +93,10 @@ def render_depth_color(out_dir, out_form='.png'):
         
         ## render image
         print('Rendering model ' + camera.name)
+        tic = time.perf_counter()
         bpy.ops.render.render()
+        toc = time.perf_counter()
+        print('Rendering completed in ', toc - tic, ' seconds')
         
         # get K, R, T and print
         K, T, R = get_3x4_P_matrix_from_blender(camera)
@@ -128,8 +133,16 @@ def render_depth_color(out_dir, out_form='.png'):
 #---------------------------------------------------------------
 # main
 #---------------------------------------------------------------
-in_dir_root = 'F:/Project/Blender/CameraStage/model/'
-out_dir_root = 'F:/Project/Blender/CameraStage/rendered/'
+in_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_textured/'
+out_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_rendered/'
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('-i', '--in_dir_root', type=str, default=in_dir_root)
+parser.add_argument('-o', '--out_dir_root', type=str, default=out_dir_root)
+args = parser.parse_args() 
+
+in_dir_root = args.in_dir_root
+out_dir_root = args.out_dir_root
 
 for r, d, f in os.walk(in_dir_root):
     for file in f:
