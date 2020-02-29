@@ -4,6 +4,7 @@ from mathutils import Matrix, Vector
 import numpy
 import time
 import argparse
+import sys
 
 # blender 2.8+
 
@@ -131,12 +132,55 @@ def render_depth_color(out_dir, out_form='.png'):
     return 0
 
 #---------------------------------------------------------------
+# ArgumentParserForBlender
+# refer to https://blender.stackexchange.com/questions/6817/how-to-pass-command-line-arguments-to-a-blender-python-script
+#---------------------------------------------------------------
+class ArgumentParserForBlender(argparse.ArgumentParser):
+    """
+    This class is identical to its superclass, except for the parse_args
+    method (see docstring). It resolves the ambiguity generated when calling
+    Blender from the CLI with a python script, and both Blender and the script
+    have arguments. E.g., the following call will make Blender crash because
+    it will try to process the script's -a and -b flags:
+    >>> blender --python my_script.py -a 1 -b 2
+
+    To bypass this issue this class uses the fact that Blender will ignore all
+    arguments given after a double-dash ('--'). The approach is that all
+    arguments before '--' go to Blender, arguments after go to the script.
+    The following calls work fine:
+    >>> blender --python my_script.py -- -a 1 -b 2
+    >>> blender --python my_script.py --
+    """
+
+    def _get_argv_after_doubledash(self):
+        """
+        Given the sys.argv as a list of strings, this method returns the
+        sublist right after the '--' element (if present, otherwise returns
+        an empty list).
+        """
+        try:
+            idx = sys.argv.index("--")
+            return sys.argv[idx+1:] # the list after '--'
+        except ValueError as e: # '--' not in the list:
+            return []
+
+    # overrides superclass
+    def parse_args(self):
+        """
+        This method is expected to behave identically as in the superclass,
+        except that the sys.argv list will be pre-processed using
+        _get_argv_after_doubledash before. See the docstring of the class for
+        usage examples and details.
+        """
+        return super().parse_args(args=self._get_argv_after_doubledash())
+
+#---------------------------------------------------------------
 # main
 #---------------------------------------------------------------
 in_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_textured/'
 out_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_rendered/'
 
-parser = argparse.ArgumentParser(description='')
+parser = ArgumentParserForBlender()
 parser.add_argument('-i', '--in_dir_root', type=str, default=in_dir_root)
 parser.add_argument('-o', '--out_dir_root', type=str, default=out_dir_root)
 args = parser.parse_args() 
