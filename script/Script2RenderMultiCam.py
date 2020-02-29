@@ -92,12 +92,17 @@ def render_depth_color(out_dir, out_form='.png'):
         # set active object as cameratype
         bpy.context.scene.camera = camera
         
-        ## render image
-        print('Rendering model ' + camera.name)
-        tic = time.perf_counter()
-        bpy.ops.render.render()
-        toc = time.perf_counter()
-        print('Rendering completed in ', toc - tic, ' seconds')
+        # if 'IR' in camera.name:
+        if 'IR' in camera.name:
+            ## render image
+            print('Rendering model ' + camera.name)
+            tic = time.perf_counter()
+            bpy.ops.render.render()
+            toc = time.perf_counter()
+            print('Rendering completed in ', toc - tic, ' seconds')
+            # save image 
+            bpy.data.images['Render Result'].save_render(outpath_image)
+        print("Image saved at " + outpath_image)
         
         # get K, R, T and print
         K, T, R = get_3x4_P_matrix_from_blender(camera)
@@ -115,13 +120,6 @@ def render_depth_color(out_dir, out_form='.png'):
         numpy.savetxt(outpath_RT, cameras_RT[camera.name])
         print('extrinsic parameter saved at '+outpath_RT)
         
-        ## save RGB image
-        if 'RGB' in camera.name:
-            bpy.data.images['Viewer Node'].save_render(outpath_image)
-        ## save Depth image
-        if 'IR' in camera.name:
-            bpy.data.images['Render Result'].save_render(outpath_image)
-        print("Image saved at " + outpath_image)
         print('')
         
     # save RTs and Ks
