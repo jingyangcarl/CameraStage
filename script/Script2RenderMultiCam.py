@@ -188,6 +188,8 @@ args = parser.parse_args()
 in_dir_root = args.in_dir_root
 out_dir_root = args.out_dir_root
 
+bpy.context.scene.cycles.device = 'GPU'
+
 for r, d, f in os.walk(in_dir_root):
     for file in f:
         if '.obj' in file:
