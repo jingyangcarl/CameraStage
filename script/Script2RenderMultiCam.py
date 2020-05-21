@@ -61,7 +61,7 @@ def get_3x4_P_matrix_from_blender(cam):
     T, R = get_RT_from_blender(cam)
     return K, T, R
 
-def render_depth_color(out_dir, out_form='.png'):
+def render_depth_color(out_dir, out_mode, out_form='.png'):
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
@@ -92,17 +92,23 @@ def render_depth_color(out_dir, out_form='.png'):
         # set active object as cameratype
         bpy.context.scene.camera = camera
         
-        # if 'IR' in camera.name:
-        if 'IR' in camera.name:
+        # define renderer
+        def render_image():
             ## render image
             print('Rendering model ' + camera.name)
             tic = time.perf_counter()
             bpy.ops.render.render()
             toc = time.perf_counter()
             print('Rendering completed in ', toc - tic, ' seconds')
-            # save image 
+            # save rendered image
             bpy.data.images['Render Result'].save_render(outpath_image)
-        print("Image saved at " + outpath_image)
+        
+        # render based on the outmode
+        if out_mode == 'all':
+            render_image()
+        elif out_mode.upper() in camera.name:
+            render_image();
+        else: pass
         
         # get K, R, T and print
         K, T, R = get_3x4_P_matrix_from_blender(camera)
@@ -174,18 +180,35 @@ class ArgumentParserForBlender(argparse.ArgumentParser):
 
 #---------------------------------------------------------------
 # main
+# the following command will run in background
+# ./blender 
+#   --background ~/Documents/Project/CameraStage/CameraStage.blend 
+#   --python ~/Documents/Project/CameraStage/script/Script2RenderMultiCam.py 
+#   -- 
+#     -i /mount/ForCarl/Data/MIXAMO/generated_frames_textured/ 
+#     -o /mount/ForCarl/Data/MIXAMO/generated_frames_rendered/
+#     -m rgb
 #---------------------------------------------------------------
 in_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_textured/'
 out_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_rendered/'
+out_mode = 'rgb'
+resolution_x = 1280
+resolution_y = 720
 
 parser = ArgumentParserForBlender()
 parser.add_argument('-i', '--in_dir_root', type=str, default=in_dir_root)
 parser.add_argument('-o', '--out_dir_root', type=str, default=out_dir_root)
+parser.add_argument('-x', '--resolution_x', type=int, default=1280)
+parser.add_argument('-y', '--resolution_y', type=int, default=720)
+parser.add_argument('-m', '--out_mode', type=str, default=out_mode)
 args = parser.parse_args() 
 
 in_dir_root = args.in_dir_root
 out_dir_root = args.out_dir_root
+out_mode = args.out_mode
 
+bpy.context.scene.render.resolution_x = args.resolution_x
+bpy.context.scene.render.resolution_y = args.resolution_y
 bpy.context.scene.cycles.device = 'GPU'
 
 for r, d, f in os.walk(in_dir_root):
@@ -220,7 +243,7 @@ for r, d, f in os.walk(in_dir_root):
             out_dir = out_dir_root + os.path.splitext(path_relative)[0] + '/'
             
             # render
-            render_depth_color(out_dir)
+            render_depth_color(out_dir, out_mode)
             
             # clean up material
             for material in bpy.data.materials:
