@@ -107,6 +107,7 @@ def render_depth_color(out_dir, out_mode, out_form='.png'):
         if out_mode == 'all':
             render_image()
         elif out_mode.upper() in camera.name:
+            # remember to change compositing nodes
             render_image();
         else: pass
         
