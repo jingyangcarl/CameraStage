@@ -193,14 +193,14 @@ class ArgumentParserForBlender(argparse.ArgumentParser):
 in_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_textured/'
 out_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_rendered/'
 out_mode = 'rgb'
-resolution_x = 1280
-resolution_y = 720
+resolution_x = 640
+resolution_y = 480
 
 parser = ArgumentParserForBlender()
 parser.add_argument('-i', '--in_dir_root', type=str, default=in_dir_root)
 parser.add_argument('-o', '--out_dir_root', type=str, default=out_dir_root)
-parser.add_argument('-x', '--resolution_x', type=int, default=1280)
-parser.add_argument('-y', '--resolution_y', type=int, default=720)
+parser.add_argument('-x', '--resolution_x', type=int, default=640)
+parser.add_argument('-y', '--resolution_y', type=int, default=480)
 parser.add_argument('-m', '--out_mode', type=str, default=out_mode)
 args = parser.parse_args() 
 
