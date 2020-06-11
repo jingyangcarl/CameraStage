@@ -61,7 +61,7 @@ def get_3x4_P_matrix_from_blender(cam):
     T, R = get_RT_from_blender(cam)
     return K, T, R
 
-def render_depth_color(out_dir, out_mode, out_form='.png'):
+def render_depth_color(out_dir, out_mode, out_form='png'):
 
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
@@ -78,7 +78,7 @@ def render_depth_color(out_dir, out_mode, out_form='.png'):
         print('Render using camera: ' + camera.name)
         
         # set path to save rendered results
-        outpath_image = out_dir + camera.name + out_form
+        outpath_image = out_dir + camera.name + '.' + out_form
         outpath_K = out_dir+camera.name+'_K.txt'
         outpath_RT = out_dir+camera.name+'_RT.txt'
         
@@ -193,6 +193,7 @@ class ArgumentParserForBlender(argparse.ArgumentParser):
 in_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_textured/'
 out_dir_root = '/home/ICT2000/jyang/Documents/Data/MIXAMO/generated_frames_rendered/'
 out_mode = 'rgb'
+out_form = 'exr'
 resolution_x = 640
 resolution_y = 480
 
@@ -202,11 +203,13 @@ parser.add_argument('-o', '--out_dir_root', type=str, default=out_dir_root)
 parser.add_argument('-x', '--resolution_x', type=int, default=640)
 parser.add_argument('-y', '--resolution_y', type=int, default=480)
 parser.add_argument('-m', '--out_mode', type=str, default=out_mode)
+parser.add_argument('-f', '--out_form', type=str, default='png')
 args = parser.parse_args() 
 
 in_dir_root = args.in_dir_root
 out_dir_root = args.out_dir_root
 out_mode = args.out_mode
+out_form = args.out_form
 
 bpy.context.scene.render.resolution_x = args.resolution_x
 bpy.context.scene.render.resolution_y = args.resolution_y
@@ -244,7 +247,7 @@ for r, d, f in os.walk(in_dir_root):
             out_dir = out_dir_root + os.path.splitext(path_relative)[0] + '/'
             
             # render
-            render_depth_color(out_dir, out_mode)
+            render_depth_color(out_dir, out_mode, out_form)
             
             # clean up material
             for material in bpy.data.materials:
